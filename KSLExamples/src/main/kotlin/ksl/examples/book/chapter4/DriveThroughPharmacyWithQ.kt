@@ -48,7 +48,7 @@ class DriveThroughPharmacyWithQ(
 ) :
     ModelElement(parent, theName = null) {
 
-    var numPharmacists = numServers
+    var numPharmacists: Int = numServers
         set(value) {
             require(value > 0)
             require(!model.isRunning) { "Cannot change the number of pharmacists while the model is running!" }
@@ -58,6 +58,7 @@ class DriveThroughPharmacyWithQ(
     private var myServiceRV: RandomVariable = RandomVariable(this, sd)
     val serviceRV: RandomSourceCIfc
         get() = myServiceRV
+
     private var myArrivalRV: RandomVariable = RandomVariable(parent, ad)
     val arrivalRV: RandomSourceCIfc
         get() = myArrivalRV
