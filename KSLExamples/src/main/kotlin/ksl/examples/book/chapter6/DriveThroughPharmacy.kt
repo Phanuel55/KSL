@@ -33,7 +33,7 @@ class DriveThroughPharmacy(
     ad: RandomIfc = ExponentialRV(1.0, 1),
     sd: RandomIfc = ExponentialRV(0.5, 2),
     name: String? = null
-) : ProcessModel(parent, name) {
+) : ProcessModel(parent, name) { // subclass of ProcessModel, not ModelElement
     init {
         require(numPharmacists > 0) { "The number of pharmacists must be >= 1" }
     }
@@ -70,7 +70,7 @@ class DriveThroughPharmacy(
     }
 
     private inner class Customer : Entity() {
-        val pharmacyProcess: KSLProcess = process() {
+        val pharmacyProcess: KSLProcess = process() { // subclass of KSLProcess
             wip.increment()
             timeStamp = time
             val a = seize(pharmacists)
