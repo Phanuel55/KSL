@@ -27,22 +27,22 @@ import ksl.simulation.ModelElement
 import ksl.utilities.random.RandomIfc
 import ksl.utilities.random.rvariable.ExponentialRV
 
-class DriveThroughPharmacy(
-    parent: ModelElement,
+class DriveThroughPharmacy( // constructor
+    parent: ModelElement, // parent model element
     numPharmacists: Int = 1,
     ad: RandomIfc = ExponentialRV(1.0, 1),
     sd: RandomIfc = ExponentialRV(0.5, 2),
-    name: String? = null
+    name: String? = null   // optional name
 ) : ProcessModel(parent, name) { // subclass of ProcessModel, not ModelElement
-    init {
+    init { // initializer block
         require(numPharmacists > 0) { "The number of pharmacists must be >= 1" }
     }
 
-    private val pharmacists: ResourceWithQ = ResourceWithQ(this, "Pharmacists", numPharmacists)
+    private val pharmacists: ResourceWithQ = ResourceWithQ(this, "Pharmacists", numPharmacists) // resource
 
-    private var serviceTime: RandomVariable = RandomVariable(this, sd)
-    val serviceRV: RandomSourceCIfc
-        get() = serviceTime
+    private var serviceTime: RandomVariable = RandomVariable(this, sd) // random variable
+    val serviceRV: RandomSourceCIfc // getter for the random variable
+        get() = serviceTime // getter for the random variable
     private var timeBetweenArrivals: RandomVariable = RandomVariable(parent, ad)
     val arrivalRV: RandomSourceCIfc
         get() = timeBetweenArrivals
@@ -59,11 +59,11 @@ class DriveThroughPharmacy(
     val probSystemTimeGT4Minutes: ResponseCIfc
         get() = mySTGT4
 
-    override fun initialize() {
-        schedule(this::arrival, timeBetweenArrivals)
+    override fun initialize() { // override the initialize method
+        schedule(this::arrival, timeBetweenArrivals) // schedule the first arrival
     }
 
-    private fun arrival(event: KSLEvent<Nothing>) {
+    private fun arrival(event: KSLEvent<Nothing>) { // event handler
         val c = Customer()
         activate(c.pharmacyProcess)
         schedule(this::arrival, timeBetweenArrivals)
@@ -71,7 +71,7 @@ class DriveThroughPharmacy(
 
     private inner class Customer : Entity() {
         val pharmacyProcess: KSLProcess = process() { // subclass of KSLProcess
-            wip.increment()
+            wip.increment()  // increment the number in system
             timeStamp = time
             val a = seize(pharmacists)
             delay(serviceTime)

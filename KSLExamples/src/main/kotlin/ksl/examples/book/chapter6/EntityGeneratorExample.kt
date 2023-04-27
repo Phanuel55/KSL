@@ -39,7 +39,7 @@ class EntityGeneratorExample(parent: ModelElement, name: String? = null) : Proce
     private val generator = EntityGenerator(::Customer, tba, tba)
     private val counter = Counter(this, "${this.name}:NumServed" )
 
-    private inner class Customer: Entity() {
+    private inner class Customer(): Entity() {
         val mm1: KSLProcess = process{
             wip.increment()
             timeStamp = time

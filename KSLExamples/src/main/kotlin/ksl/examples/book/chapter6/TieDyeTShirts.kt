@@ -57,7 +57,7 @@ class TieDyeTShirts(parent: ModelElement, theName: String? = null) : ProcessMode
                 val shirt = Shirt(this@Order.id)
                 activate(shirt.shirtMaking)
             }
-            var a = seize(myPackager, queue = myOrderQ)
+            var a = seize(myPackager, queue = myOrderQ, seizePriority = 1)
             delay(myPaperWorkTime)
             release(a)
             // wait for shirts
