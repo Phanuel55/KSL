@@ -48,9 +48,9 @@ class TestNHPPPWLinear(parent: ModelElement, f: PiecewiseRateFunction, name: Str
         override fun generate(generator: EventGenerator) {
             val t: Double = time
 
-            //System.out.println("event at time: " + t);				
+            System.out.println("event at time: " + t);
             val i: Int = myPWRF.findTimeInterval(t)
-            //System.out.println("occurs in interval: " + i);				
+            System.out.println("occurs in interval: " + i);
             myCountersFC[i].increment()
         }
     }

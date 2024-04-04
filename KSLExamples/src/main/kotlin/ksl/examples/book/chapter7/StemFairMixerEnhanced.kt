@@ -139,13 +139,13 @@ class StemFairMixerEnhanced(parent: ModelElement, name: String? = null) : Proces
     }
 
     private val myEndTime = Response(this, "Mixer Ending Time")
-    init{
+    init{ // set up the ending time indicator
         myEndTime.attachIndicator({ x -> x > lengthOfMixer }, "Prob(EndTime>$lengthOfMixer)")
     }
 
-    override fun initialize() {
-        isClosed = false
-        schedule(this::closeMixer, doorClosingTime)
+    override fun initialize() { // called once at beginning of simulation
+        isClosed = false // set the flag to false
+        schedule(this::closeMixer, doorClosingTime) // schedule the door closing event
     }
 
     override fun replicationEnded() {

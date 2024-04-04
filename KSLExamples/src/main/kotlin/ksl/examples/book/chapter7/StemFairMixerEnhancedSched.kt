@@ -90,8 +90,8 @@ class StemFairMixerEnhancedSched(parent: ModelElement, name: String? = null) : P
         get() = myMalWartRecruiters
 
     private val myTotalAtRecruiters: AggregateTWResponse = AggregateTWResponse(this, "StudentsAtRecruiters")
-    init {
-        myTotalAtRecruiters.observe(myJHBuntRecruiters.numBusyUnits)
+    init { // set up the response
+        myTotalAtRecruiters.observe(myJHBuntRecruiters.numBusyUnits) // observe the number at JHBunt
         myTotalAtRecruiters.observe(myJHBuntRecruiters.waitingQ.numInQ)
         myTotalAtRecruiters.observe(myMalWartRecruiters.numBusyUnits)
         myTotalAtRecruiters.observe(myMalWartRecruiters.waitingQ.numInQ)
@@ -100,7 +100,7 @@ class StemFairMixerEnhancedSched(parent: ModelElement, name: String? = null) : P
     private val myTBArrivals: NHPPTimeBtwEventRV
 //    private val myTBArrivals: RVariableIfc
 
-    private val myJHBuntSchedule : CapacitySchedule = CapacitySchedule(this, 0.0)
+    private val myJHBuntSchedule : CapacitySchedule = CapacitySchedule(this, 0.0) // set up the schedule
     private val myMalWartSchedule : CapacitySchedule = CapacitySchedule(this, 0.0)
 
     init {
@@ -118,7 +118,7 @@ class StemFairMixerEnhancedSched(parent: ModelElement, name: String? = null) : P
         myTBArrivals = NHPPTimeBtwEventRV(this, f, streamNum = 1)
 //        myTBArrivals = ExponentialRV(2.0, 1)
 
-        myJHBuntSchedule.addItem(capacity = 1, duration = 60.0)
+        myJHBuntSchedule.addItem(capacity = 1, duration = 60.0) // add the schedule items
         myJHBuntSchedule.addItem(capacity = 2, duration = 60.0)
         myJHBuntSchedule.addItem(capacity = 4, duration = 60.0)
         myJHBuntSchedule.addItem(capacity = 7, duration = 60.0)
